@@ -4,7 +4,7 @@ let webToken = require('../common/token');
 let result = require('../common/returnObject');
 let router = express.Router();
 
-let userOperate = require('../dao/userDao'); 
+// let userOperate = require('../dao/userDao'); 
 router.post('/login',(req, res, next)=>{
   // 在这里查数据库 参数是req.body.account
   let user = req.body;
