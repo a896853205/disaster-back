@@ -15,8 +15,10 @@ connect.init();
 let mainPath = './src/main';
 let testPath = './src/test';
 
-// 路由
+// 正式路由
 var indexRouter = require(`${mainPath}/app/routes/index`);
+let areaRouter = require(`${mainPath}/app/routes/area`);
+// 测试路由
 let areaTestRouter = require(`${testPath}/app/routes/areaRouterTest.test`);
 var app = express();
 
@@ -36,6 +38,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 // 测试路由
 app.use('/test', areaTestRouter);
+
+// 正式路由
+app.use('/area', areaRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

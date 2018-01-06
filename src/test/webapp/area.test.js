@@ -2,7 +2,7 @@
  * @Author: qc
  * @Date: 2018-01-06 17:56:20 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-01-06 19:23:24
+ * @Last Modified time: 2018-01-06 21:08:12
  */
 let random = require('../app/common/random');
 let axios = require('axios');
@@ -18,9 +18,18 @@ areaOperator.insert = (name) => {
     latitude:'26°03′'
   };
   insertParam.name = name;
-  axios.post(`${baseUrl}/test/area/insert`,insertParam).then((res)=>{
+  axios.post(`${baseUrl}/test/area/insert`, insertParam).then((res)=>{
   }).catch((e)=>{
     console.log(e);
+  });
+}
+areaOperator.truncate = () => {
+  return new Promise((resolve,reject) => {
+    axios.get(`${baseUrl}/test/area/truncate`).then((res)=>{
+      resolve();
+    }).catch((e)=>{
+      console.log(e);
+    });
   });
 }
 
