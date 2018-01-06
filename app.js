@@ -11,15 +11,9 @@ var bodyParser = require('body-parser');
 let mainPath = './src/main';
 let testPath = './src/test';
 
-// 中间件
-let verifyIdMiddle = require(`${mainPath}/app/middle/checkId`);
-let verifyRoleMiddle = require(`${mainPath}/app/middle/checkRole`);
-
 // 路由
 var indexRouter = require(`${mainPath}/app/routes/index`);
-var usersRouter = require(`${mainPath}/app/routes/users`);
-let managerRouter = require(`${mainPath}/app/routes/manager`);
-
+let areaTestRouter = require(`${testPath}/app/routes/areaRouterTest`);
 var app = express();
 
 // view engine setup
@@ -36,11 +30,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-// 判断权限的中间件
-app.use('/home', verifyIdMiddle, verifyRoleMiddle);
-// 判断结束进入主页
-app.use('/home/manager', managerRouter);
+// 测试路由
+app.use('/test', areaTestRouter);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

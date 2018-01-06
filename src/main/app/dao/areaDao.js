@@ -2,7 +2,7 @@
  * @Author: qc
  * @Date: 2018-01-06 02:34:13 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-01-06 02:46:57
+ * @Last Modified time: 2018-01-06 12:20:09
  */
 let areaMapper = require('../../resources/mapper/areaMapper');
 let db = require('../../resources/dbconnect');
@@ -17,8 +17,10 @@ let areaOperate = {};
  * @param {*经度} longitude 
  * @param {*纬度} latitude 
  */
-areaOperate.insertArea = (name, population, density, longitude, latitude) =>{
+areaOperate.insertArea = ({name, population, density, longitude, latitude}) =>{
   return new Promise((resolve, reject)=>{
     db.query(areaMapper.insertArea, [uuid(), name, population, density, longitude, latitude], resolve);
   });
 }
+
+module.exports = areaOperate;

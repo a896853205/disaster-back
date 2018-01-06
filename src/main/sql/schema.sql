@@ -19,10 +19,10 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `b_earthquake`;
 CREATE TABLE `b_earthquake` (
-  `id` char(32) NOT NULL COMMENT '编号',
-  `area_id` char(32) DEFAULT NULL COMMENT '地区编号',
+  `id` char(36) NOT NULL COMMENT '编号',
+  `area_id` char(36) DEFAULT NULL COMMENT '地区编号',
   `collapse` float(255,0) DEFAULT NULL COMMENT '倒塌系数',
-  `strength_id` char(32) DEFAULT NULL COMMENT '烈度id',
+  `strength_id` char(36) DEFAULT NULL COMMENT '烈度id',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='地震信息表';
 
@@ -35,10 +35,10 @@ CREATE TABLE `b_earthquake` (
 -- ----------------------------
 DROP TABLE IF EXISTS `b_need_result`;
 CREATE TABLE `b_need_result` (
-  `id` char(32) NOT NULL COMMENT '编号',
-  `earthquake_id` char(32) DEFAULT NULL COMMENT '地震编号',
-  `area_id` char(32) DEFAULT NULL COMMENT '地区编号',
-  `good_id` char(32) DEFAULT NULL COMMENT '物资编号',
+  `id` char(36) NOT NULL COMMENT '编号',
+  `earthquake_id` char(36) DEFAULT NULL COMMENT '地震编号',
+  `area_id` char(36) DEFAULT NULL COMMENT '地区编号',
+  `good_id` char(36) DEFAULT NULL COMMENT '物资编号',
   `amout` float(255,0) DEFAULT NULL COMMENT '数量',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='需求信息表';
@@ -52,7 +52,7 @@ CREATE TABLE `b_need_result` (
 -- ----------------------------
 DROP TABLE IF EXISTS `d_area`;
 CREATE TABLE `d_area` (
-  `id` char(32) NOT NULL COMMENT '编号',
+  `id` char(36) NOT NULL COMMENT '编号',
   `name` varchar(255) DEFAULT NULL COMMENT '地区名',
   `population` float(255,0) DEFAULT NULL COMMENT '人口总数',
   `density` float(255,0) DEFAULT NULL COMMENT '人口密度',
@@ -70,7 +70,7 @@ CREATE TABLE `d_area` (
 -- ----------------------------
 DROP TABLE IF EXISTS `d_density_factor`;
 CREATE TABLE `d_density_factor` (
-  `id` char(32) NOT NULL COMMENT '编号',
+  `id` char(36) NOT NULL COMMENT '编号',
   `begin` float(255,0) DEFAULT NULL COMMENT '下限',
   `end` float(255,0) DEFAULT NULL COMMENT '上限',
   `coeffcient` float(255,0) DEFAULT NULL COMMENT '系数',
@@ -86,7 +86,7 @@ CREATE TABLE `d_density_factor` (
 -- ----------------------------
 DROP TABLE IF EXISTS `d_good`;
 CREATE TABLE `d_good` (
-  `id` char(32) NOT NULL COMMENT '编号',
+  `id` char(36) NOT NULL COMMENT '编号',
   `name` varchar(255) DEFAULT NULL COMMENT '物资名',
   `type_id` char(3) DEFAULT NULL COMMENT '种类id',
   `size` varchar(255) DEFAULT NULL COMMENT '规格',
@@ -103,9 +103,9 @@ CREATE TABLE `d_good` (
 -- ----------------------------
 DROP TABLE IF EXISTS `d_need_factor`;
 CREATE TABLE `d_need_factor` (
-  `id` char(32) NOT NULL COMMENT '编号',
-  `area_id` char(32) DEFAULT NULL COMMENT '地区编号',
-  `good_id` char(32) DEFAULT NULL COMMENT '物资编号',
+  `id` char(36) NOT NULL COMMENT '编号',
+  `area_id` char(36) DEFAULT NULL COMMENT '地区编号',
+  `good_id` char(36) DEFAULT NULL COMMENT '物资编号',
   `coeffcient` float(255,0) DEFAULT NULL COMMENT '系数',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='地区需求系数表';
@@ -119,7 +119,7 @@ CREATE TABLE `d_need_factor` (
 -- ----------------------------
 DROP TABLE IF EXISTS `d_strength_factor`;
 CREATE TABLE `d_strength_factor` (
-  `id` char(32) NOT NULL COMMENT '编号',
+  `id` char(36) NOT NULL COMMENT '编号',
   `level` varchar(255) DEFAULT NULL COMMENT '等级',
   `coeffcient` float(255,0) DEFAULT NULL COMMENT '系数',
   PRIMARY KEY (`id`)
@@ -134,7 +134,7 @@ CREATE TABLE `d_strength_factor` (
 -- ----------------------------
 DROP TABLE IF EXISTS `d_type`;
 CREATE TABLE `d_type` (
-  `id` char(32) NOT NULL COMMENT '编号',
+  `id` char(36) NOT NULL COMMENT '编号',
   `name` varchar(255) DEFAULT NULL COMMENT '种类名',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='种类表';
@@ -148,8 +148,8 @@ CREATE TABLE `d_type` (
 -- ----------------------------
 DROP TABLE IF EXISTS `d_type_factor`;
 CREATE TABLE `d_type_factor` (
-  `id` char(32) NOT NULL COMMENT '编号',
-  `area_id` char(32) DEFAULT NULL COMMENT '地区编号',
+  `id` char(36) NOT NULL COMMENT '编号',
+  `area_id` char(36) DEFAULT NULL COMMENT '地区编号',
   `type_id` char(3) DEFAULT NULL COMMENT '种类id',
   `coeffcient` float(255,0) DEFAULT NULL COMMENT '系数',
   PRIMARY KEY (`id`)
