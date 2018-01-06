@@ -7,13 +7,17 @@ var cookieParser = require('cookie-parser');
 // 请求体解析包
 var bodyParser = require('body-parser');
 
+// 创建数据库连接池
+let connect = require('./src/main/resources/dbconnect');
+connect.init();
+
 // 基本文件路径和测试路径
 let mainPath = './src/main';
 let testPath = './src/test';
 
 // 路由
 var indexRouter = require(`${mainPath}/app/routes/index`);
-let areaTestRouter = require(`${testPath}/app/routes/areaRouterTest`);
+let areaTestRouter = require(`${testPath}/app/routes/areaRouterTest.test`);
 var app = express();
 
 // view engine setup
