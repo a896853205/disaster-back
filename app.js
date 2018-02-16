@@ -6,7 +6,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 // 请求体解析包
 var bodyParser = require('body-parser');
-
+// 设置跨域
+let corsConfig = require('./corsConfig')
 // 创建数据库连接池
 let connect = require('./src/main/resources/dbconnect');
 connect.init();
@@ -22,6 +23,8 @@ let areaRouter = require(`${mainPath}/app/routes/area`);
 let areaTestRouter = require(`${testPath}/app/routes/areaRouterTest.test`);
 var app = express();
 
+// 允许跨域
+app.all('*',corsConfig);
 // view engine setup
 // jade设置路径
 app.set('views', path.join(__dirname, `${mainPath}/webapp/views`));
