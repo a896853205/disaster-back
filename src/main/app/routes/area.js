@@ -2,10 +2,10 @@
  * @Author: qc
  * @Date: 2018-01-07 00:08:09 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-02-15 19:17:22
+ * @Last Modified time: 2018-02-16 12:18:36
  */
 let returnObject = require('../common/returnObject');
-let areaOperate = require('../dao/areaDao');
+let areaService = require('../service/areaService');
 let express = require('express');
 let router = express.Router();
 
@@ -14,19 +14,18 @@ let router = express.Router();
  */
 router.get('/getAllArea',(req, res, next) => {
   let result = new returnObject()
-  areaOperate.selectAllArea()
+  areaService.selectAllArea()
   .then(value => {
     result.linkSuccess()
-    let allArea = value;
     res.json({
       statusObj: result,
-      allArea
+      allArea: value
     })
   })
   .catch(e => {
     result.errMessage = '查询所有地区基本信息失败'
-    res.json(result);
+    res.json(result)
   });
 });
 
-module.exports = router;
+module.exports = router

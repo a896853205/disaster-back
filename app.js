@@ -17,14 +17,17 @@ let mainPath = './src/main';
 let testPath = './src/test';
 
 // 正式路由
-var indexRouter = require(`${mainPath}/app/routes/index`);
-let areaRouter = require(`${mainPath}/app/routes/area`);
+let areaRouter = require(`${mainPath}/app/routes/area`)
+let strengthRouter = require(`${mainPath}/app/routes/strength`)
+let computedRouter = require(`${mainPath}/app/routes/computed`)
 // 测试路由
 let areaTestRouter = require(`${testPath}/app/routes/areaRouterTest.test`);
-var app = express();
+let goodTestRouter = require(`${testPath}/app/routes/goodRouterTest.test`);
+
+var app = express()
 
 // 允许跨域
-app.all('*',corsConfig);
+app.all('*',corsConfig)
 // view engine setup
 // jade设置路径
 app.set('views', path.join(__dirname, `${mainPath}/webapp/views`));
@@ -38,20 +41,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
 // 测试路由
-app.use('/test', areaTestRouter);
+app.use('/test', areaTestRouter, goodTestRouter);
 
 // 正式路由
-app.use('/area', areaRouter);
-
+app.use('/area', areaRouter)
+app.use('/strength', strengthRouter)
+app.use('/computed', computedRouter)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  console.log('err:' + err.status);
+  var err = new Error('Not Found')
+  console.log('err:' + err.status)
   err.status = 404;
-  next(err);
-});
+  next(err)
+})
 
 // error handler
 app.use(function(err, req, res, next) {
