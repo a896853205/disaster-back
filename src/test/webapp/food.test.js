@@ -2,7 +2,7 @@
  * @Author: qc
  * @Date: 2018-02-16 22:45:37 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-02-18 11:46:08
+ * @Last Modified time: 2018-02-18 14:19:09
  */
 let random = require('../app/common/random')
 let axios = require('axios')
@@ -23,8 +23,14 @@ foodOperator.foodInsert = (foodList) => {
 }
 
 foodOperator.areaNeedInsert = () => {
-  // 查询所有的区域,
-  // 查询应急物资表,
+  axios.post(`${baseUrl}/test/need/truncate`)
+  .then(() => {
+    return axios.post(`${baseUrl}/test/need/needInsert`)
+  })
+  .then(res => {})
+  .catch(e => {
+    console.log(e)
+  })
 }
 
 foodOperator.truncate = () => {
