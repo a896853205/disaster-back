@@ -2,7 +2,7 @@
  * @Author: qc
  * @Date: 2018-01-07 00:08:09 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-02-18 17:12:34
+ * @Last Modified time: 2018-02-18 17:48:23
  */
 let returnObject = require('../common/returnObject')
 let areaService = require('../service/areaService')
@@ -36,7 +36,7 @@ router.post('/computedNeed', (req, res, next) => {
     .then(Djk => {
       // 然后返回给前台
       res.json({
-        stateObj: result,
+        statusObj: result,
         needResult: Djk
       })
     })

@@ -1,0 +1,37 @@
+module.exports = [{
+  name: '通信基站',
+  type_id: 1,
+  size: '3m',
+  unit: '台',
+  weight: 5
+}, {
+  name: '对讲机',
+  type_id: 1,
+  size: '0.5m',
+  unit: '部',
+  weight: 0.8
+}, {
+  name: '矿泉水',
+  type_id: 1,
+  size: '500ml',
+  unit: '箱',
+  weight: 12
+}, {
+  name: '面包',
+  type_id: 1,
+  size: '200g',
+  unit: '箱',
+  weight: 8
+}, {
+  name: '锹',
+  type_id: 1,
+  size: '2m',
+  unit: '把',
+  weight: 1
+}, {
+  name: '镐',
+  type_id: 1,
+  size: '1m',
+  unit: '把',
+  weight: 1.5
+}]

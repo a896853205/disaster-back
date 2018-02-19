@@ -2,7 +2,7 @@
  * @Author: qc
  * @Date: 2018-02-16 22:45:37 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-02-18 14:19:09
+ * @Last Modified time: 2018-02-19 16:10:46
  */
 let random = require('../app/common/random')
 let axios = require('axios')
@@ -31,10 +31,6 @@ foodOperator.areaNeedInsert = () => {
   .catch(e => {
     console.log(e)
   })
-}
-
-foodOperator.truncate = () => {
-
 }
 
 module.exports = foodOperator

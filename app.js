@@ -13,16 +13,18 @@ let connect = require('./src/main/resources/dbconnect');
 connect.init();
 
 // 基本文件路径和测试路径
-let mainPath = './src/main';
-let testPath = './src/test';
+let mainPath = './src/main'
+let testPath = './src/test'
 
 // 正式路由
 let areaRouter = require(`${mainPath}/app/routes/area`)
 let strengthRouter = require(`${mainPath}/app/routes/strength`)
 let computedRouter = require(`${mainPath}/app/routes/computed`)
 // 测试路由
-let areaTestRouter = require(`${testPath}/app/routes/areaRouterTest.test`);
-let goodTestRouter = require(`${testPath}/app/routes/goodRouterTest.test`);
+let areaTestRouter = require(`${testPath}/app/routes/areaRouterTest.test`)
+let goodTestRouter = require(`${testPath}/app/routes/goodRouterTest.test`)
+let rescueTestRouter = require(`${testPath}/app/routes/rescueRouterTest.test`)
+let distanceTestRouter = require(`${testPath}/app/routes/distanceRouterTest.test`)
 
 var app = express()
 
@@ -35,14 +37,14 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(logger('dev'))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cookieParser())
+app.use(express.static(path.join(__dirname, 'public')))
 
 // 测试路由
-app.use('/test', areaTestRouter, goodTestRouter);
+app.use('/test', areaTestRouter, goodTestRouter, rescueTestRouter, distanceTestRouter)
 
 // 正式路由
 app.use('/area', areaRouter)

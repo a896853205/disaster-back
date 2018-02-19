@@ -83,6 +83,7 @@ function needGood(areaItem, goodItem, typeItem, SS, ZS) {
   if (goodItem.type_id === typeItem.type_id) {
     return {
       area_id: areaItem.id,
+      area_name: areaItem.name,
       good_id: goodItem.id,
       good_name: goodItem.name,
       needNum: needNum(areaItem, goodItem, typeItem, SS, ZS)
