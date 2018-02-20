@@ -2,7 +2,7 @@
  * @Author: qc
  * @Date: 2018-01-07 00:08:09 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-02-18 17:48:23
+ * @Last Modified time: 2018-02-20 13:31:03
  */
 let returnObject = require('../common/returnObject')
 let areaService = require('../service/areaService')
@@ -11,6 +11,7 @@ let typeService = require('../service/typeService')
 let goodService = require('../service/goodService')
 let earthquakeService = require('../service/earthquakeService')
 let needResultService = require('../service/needResultService')
+let areaNeedResultService = require('../service/areaNeedResultService')
 
 let uuid = require('uuid')
 let express = require('express')
@@ -20,12 +21,10 @@ let router = express.Router()
  * 计算出需求信息
  */
 router.post('/computedNeed', (req, res, next) => {
-  console.log('开始计算')
   let result = new returnObject()
   // 查询所有人口密度修正系数,然后进入回调函数
   Promise.all([densityService.selectAllDensity(), typeService.selectAllTypeFactor(), goodService.selectAllGood()])
   .then(value => {
-    console.log('查询结束')
     let allDensityFactor = value[0]
     let allTypeFactor = value[1]
     let allGood = value[2]
@@ -46,5 +45,21 @@ router.post('/computedNeed', (req, res, next) => {
   })
 })
 
+router.post('/computedAreaNeed', (req, res, next) => {
+  let result = new returnObject()
+  // 从req中获取问卷标题
+  let param = req.body
+  areaNeedResultService.getAreaNeed(param)
+  .then(({areaNeedResult, unPut}) => {
+    res.json({
+      statusObj: result,
+      areaNeedResult,
+      unPut
+    })
+  })
+  .catch(e => {
+    console.log(e)
+  })
+})
 
 module.exports = router
