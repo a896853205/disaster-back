@@ -2,10 +2,11 @@
  * @Author: qc
  * @Date: 2018-01-06 02:34:13 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-02-19 16:49:35
+ * @Last Modified time: 2018-02-21 15:27:15
  */
 let rescueMapper = require('../../resources/mapper/rescueMapper.test')
 let rescueGoodMapper = require('../../resources/mapper/rescueGoodMapper.test')
+let rescueVehicleMapper = require('../../resources/mapper/rescueVehicleMapper')
 
 let db = require('../../../main/resources/dbconnect')
 let uuid = require('uuid')
@@ -43,12 +44,14 @@ rescueOperate.insertRescueGood = (rescue_id, good_id, amount) => {
   })
 }
 /**
- * 清除信息
+ * 插入一条物资点车辆信息
+ * @param {String} rescue_id 物资点id
+ * @param {String} vehicle_id 交通id
+ * @param {Number} amount 数量
  */
-// areaOperate.truncate = () => {
-//   return new Promise((resolve, reject)=>{
-//     db.query(areaMapper.truncate, [], resolve)
-//   })
-// }
-
+rescueOperate.insertRescueVehicle = (rescue_id, vehicle_id, amount) => {
+  return new Promise((resolve, reject) => {
+    db.query(rescueVehicleMapper.insertRescueVehicle, [uuid(), rescue_id, vehicle_id, amount], resolve)
+  })
+}
 module.exports = rescueOperate

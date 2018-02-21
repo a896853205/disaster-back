@@ -2,7 +2,7 @@
  * @Author: qc
  * @Date: 2018-01-07 00:08:09 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-02-20 13:31:03
+ * @Last Modified time: 2018-02-20 16:19:18
  */
 let returnObject = require('../common/returnObject')
 let areaService = require('../service/areaService')
@@ -12,6 +12,7 @@ let goodService = require('../service/goodService')
 let earthquakeService = require('../service/earthquakeService')
 let needResultService = require('../service/needResultService')
 let areaNeedResultService = require('../service/areaNeedResultService')
+let areaUpLoadService = require('../service/areaUpLoadService')
 
 let uuid = require('uuid')
 let express = require('express')
@@ -33,6 +34,7 @@ router.post('/computedNeed', (req, res, next) => {
     let param = req.body
     needResultService.computedNeedResult(param)
     .then(Djk => {
+      result.linkSuccess()
       // 然后返回给前台
       res.json({
         statusObj: result,
@@ -51,6 +53,7 @@ router.post('/computedAreaNeed', (req, res, next) => {
   let param = req.body
   areaNeedResultService.getAreaNeed(param)
   .then(({areaNeedResult, unPut}) => {
+    result.linkSuccess()
     res.json({
       statusObj: result,
       areaNeedResult,
@@ -62,4 +65,19 @@ router.post('/computedAreaNeed', (req, res, next) => {
   })
 })
 
+router.post('/computedUpLoad', (req, res, next) => {
+  let result = new returnObject()
+  // 从req中获取问卷标题
+  let param = req.body
+  areaUpLoadService.areaUpLoad(param)
+  .then(res => {
+    result.linkSuccess()
+    res.json({
+      statusObj: result
+    })
+  })
+  .catch(e => {
+    console.log(e)
+  })
+})
 module.exports = router

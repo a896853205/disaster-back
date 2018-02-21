@@ -2,7 +2,7 @@
  * @Author: qc
  * @Date: 2018-01-06 12:41:18 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-02-19 17:39:15
+ * @Last Modified time: 2018-02-21 18:11:08
  */
 let assert = require('assert');
 let area = require('./webapp/area.test')
@@ -36,7 +36,13 @@ describe('灾区', () => {
   // it ('增加物资点物资', () => {
   //   rescue.insertGood()
   // })
-  it ('路况增加', () => {
-    distance.distanceInsert()
+  // it ('路况增加', () => {
+  //   distance.distanceInsert()
+  // })
+  // it ('增加物资点交通', () => {
+  //   rescue.insertVehicle()
+  // })
+  it ('增加灾点与灾点之间的距离', () => {
+    distance.areaAreaInsert()
   })
 })

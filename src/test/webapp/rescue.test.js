@@ -2,7 +2,7 @@
  * @Author: qc
  * @Date: 2018-01-06 17:56:20
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-02-19 16:54:47
+ * @Last Modified time: 2018-02-21 15:34:42
  */
 let random = require('../app/common/random')
 let axios = require('axios')
@@ -30,6 +30,16 @@ rescueOperator.insert = name => {
  */
 rescueOperator.insertGood = () => {
   axios.post(`${baseUrl}/test/rescue/goodInsert`)
+  .then(res => {})
+  .catch(e => {
+    console.log(e)
+  })
+}
+/**
+ * 插入一条物资点车辆信息
+ */
+rescueOperator.insertVehicle = () => {
+  axios.post(`${baseUrl}/test/rescue/vehicleInsert`)
   .then(res => {})
   .catch(e => {
     console.log(e)

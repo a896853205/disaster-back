@@ -40,6 +40,21 @@ rescueService.insertRescueGood = () => {
     })
   })
 }
-
+/**
+ * 插入一条物资点车辆信息
+ */
+rescueService.insertRescueVehicle = () => {
+  return new Promise((resolve, reject) => {
+    // 查出所有的物资点-----(这里应该还查vehicle表,目前只有4个就不查了)
+    rescueDao.selectAllRescue()
+    .then(allRescue => {
+      allRescue.forEach(rescueItem => {
+        [1, 2, 3].forEach(vehicle_id => {
+          rescueDao.insertRescueVehicle(rescueItem.id, vehicle_id, random(0, 20))
+        })
+      })
+    })
+  })
+}
 
 module.exports = rescueService

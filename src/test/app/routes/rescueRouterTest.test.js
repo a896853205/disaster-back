@@ -2,7 +2,7 @@
  * @Author: qc 
  * @Date: 2018-01-06 12:09:36 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-02-19 16:53:24
+ * @Last Modified time: 2018-02-21 15:32:42
  */
 
 let rescueService = require('../service/rescueService')
@@ -33,7 +33,6 @@ router.post('/rescue/insert',(req, res, next) => {
  */
 router.post('/rescue/goodInsert', (req, res, next) => {
   let result = new returnFunction()
-  let rescueGood = req.body
   rescueService.insertRescueGood()
   .then(() => {
     // 成功时返回1
@@ -43,6 +42,21 @@ router.post('/rescue/goodInsert', (req, res, next) => {
   .catch(err => {
     // 未成功时直接返回
     result.errMessage = '物资基本物资信息插入未成功'
+    res.json(result)
+  })
+})
+
+router.post('/rescue/vehicleInsert', (req, res, next) => {
+  let result = new returnFunction()
+  rescueService.insertRescueVehicle()
+  .then(() => {
+    // 成功时返回1
+    result.linkSuccess()
+    res.json(result)
+  })
+  .catch(err => {
+    // 未成功时直接返回
+    result.errMessage = '物资基本交通信息插入未成功'
     res.json(result)
   })
 })
