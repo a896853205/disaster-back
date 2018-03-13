@@ -91,7 +91,7 @@ areaUpLoadService.areaUpLoad = areaNeedResult => {
       } catch (error) {
         console.log(error)
       }
-      console.log(upLoadArr.length)
+      console.log(upLoadArr)
       // upLoadArr.forEach((upLoadItem, index) => {
       //   if (upLoadItem.amount === 0) {
       //     upLoadArr.splice(index, 1)

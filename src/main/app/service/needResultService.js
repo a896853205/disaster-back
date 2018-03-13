@@ -100,13 +100,13 @@ function needGood(areaItem, goodItem, typeItem, SS, ZS) {
  */
 function needNum (areaItem, goodItem, typeItem, SS, ZS) {
   if (typeItem.type_id === '1') {
-    return typeItem.coeffcient * SS
+    return Math.ceil(typeItem.coeffcient * SS)
   } else if (typeItem.type_id === '2') {
-    return typeItem.coeffcient * SS
+    return Math.ceil(typeItem.coeffcient * SS)
   } else if (typeItem.type_id === '3') {
-    return typeItem.coeffcient * (areaItem.population - ZS)
+    return Math.ceil(typeItem.coeffcient * (areaItem.population - ZS))
   } else if (typeItem.type_id === '4') {
-    return typeItem.coeffcient * (areaItem.population - ZS)
+    return Math.ceil(typeItem.coeffcient * (areaItem.population - ZS))
   }
 }
 /**
@@ -114,7 +114,7 @@ function needNum (areaItem, goodItem, typeItem, SS, ZS) {
  * @param {Number} RB 房屋倒塌率
  */
 function dieRate (RB) {
-  return Math.pow(10, RB / 100 * 0.9 - 10.07)
+  return Math.pow(10, Math.pow(0.1, RB) / 9 - 10.07)
 }
 /**
  * @param {Number} density 人口密度
@@ -154,3 +154,5 @@ function injuredNum (ND) {
 }
 
 module.exports = needResultService
+
+// 直观一些,行政区划

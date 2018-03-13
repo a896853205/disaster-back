@@ -66,6 +66,7 @@ areaNeedResultService.getAreaNeed = Djk => {
                     area_id: areaGoodItem.area_id,
                     area_name: areaGoodItem.area_name,
                     good_id: areaGoodItem.good_id,
+                    good_name: areaGoodItem.good_name,
                     amount: getNum
                   })
                 } else {
@@ -80,6 +81,7 @@ areaNeedResultService.getAreaNeed = Djk => {
                     area_id: areaGoodItem.area_id,
                     area_name: areaGoodItem.area_name,
                     good_id: areaGoodItem.good_id,
+                    good_name: areaGoodItem.good_name,
                     amount: getNum
                   })
                 }
@@ -91,7 +93,7 @@ areaNeedResultService.getAreaNeed = Djk => {
         allGoods = allGoods.concat(allGoodsInRescue)
         Djk = Djk.concat(allGoodsInArea)
         let isHas = false
-        console.log(Djk)
+        // console.log(Djk)
         Djk.forEach(need => {
           if (need.needNum !== 0) {
             isHas = true
@@ -104,7 +106,7 @@ areaNeedResultService.getAreaNeed = Djk => {
       // 这个是要的结果
       console.log(areaNeedResult)
       // 最后循环判断allGoodsInArea的amount是否都等于0,不等于0弄出来
-      console.log(Djk)
+      // console.log(Djk)
       let unPut = []
       Djk.forEach(need => {
         if (need.needNum !== 0) {
