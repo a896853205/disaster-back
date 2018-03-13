@@ -2,7 +2,7 @@ let goodDao = require('../dao/goodDao')
 let rescueVehicleDao = require('../dao/rescueVehicleDao')
 let vehicleDao = require('../dao/vehicleDao')
 let distanceDao = require('../dao/distanceDao')
-
+let uuid = require('uuid')
 let areaUpLoadService = {}
 
 /**
@@ -11,12 +11,21 @@ let areaUpLoadService = {}
 areaUpLoadService.areaUpLoad = areaNeedResult => {
   return new Promise((resolve, reject) => {
     // 查询所有物品信息
-    Promise.all([goodDao.selectAllGood(), rescueVehicleDao.selectAllRescueVehicle(), vehicleDao.selectAllVehicle(), distanceDao.selectAllAreaAreaDistace()])
+    // 查询所有营救点车辆
+    // 查询所有车辆类型
+    // 查询所有灾区与灾区距离
+    Promise.all([goodDao.selectAllGood(), 
+      rescueVehicleDao.selectAllRescueVehicle(), 
+      vehicleDao.selectAllVehicle(), 
+      distanceDao.selectAllAreaAreaDistace()])
     .then(value => {
-      console.log('查询成功')
+      // 查询所有物品信息
       let allGood = value[0]
+      // 查询所有营救点车辆
       let allrescueVehicle = value[1]
+      // 查询所有车辆类型
       let allVehicle = value[2]
+      // 查询所有灾区与灾区距离
       let allAreaAreaDistance = value[3]
       let settleNeedArr = []
       let upLoadArr = []
@@ -36,6 +45,7 @@ areaUpLoadService.areaUpLoad = areaNeedResult => {
                 // 修改成对象形式-----------------------------
                 rescueItem.goodArr.push({
                   good_id: needItem.good_id,
+                  good_name: needItem.good_name,
                   amount: needItem.amount,
                   type_id: getGoodType(needItem.good_id, allGood)
                 })
@@ -47,6 +57,7 @@ areaUpLoadService.areaUpLoad = areaNeedResult => {
                 rescue_id: needItem.rescue_id,
                 goodArr: [{
                   good_id: needItem.good_id,
+                  good_name: needItem.good_name,
                   amount: needItem.amount,
                   type_id: getGoodType(needItem.good_id, allGood)
                 }]
@@ -58,10 +69,12 @@ areaUpLoadService.areaUpLoad = areaNeedResult => {
           // 这里可以变成构造对象-------------------
           settleNeedArr.push({
             area_id: needItem.area_id,
+            area_name: needItem.area_name,
             rescueArr: [{
               rescue_id: needItem.rescue_id,
               goodArr: [{
                 good_id: needItem.good_id,
+                good_name: needItem.good_name,
                 amount: needItem.amount,
                 type_id: getGoodType(needItem.good_id, allGood)
               }]
@@ -77,6 +90,7 @@ areaUpLoadService.areaUpLoad = areaNeedResult => {
           })
         })
       })
+      console.log(settleNeedArr)
       try {
         for (let i = 0; i < settleNeedArr.length; i++) {
           for(let j = 0; j < settleNeedArr[i].rescueArr.length; j++) {
@@ -85,18 +99,14 @@ areaUpLoadService.areaUpLoad = areaNeedResult => {
               continue
             }
             // 这里调用main
-            main (A, 0, 0, 1, settleNeedArr, allGood, allAreaAreaDistance, upLoadArr)
+            main (A, i, j, 1, settleNeedArr, allGood, allAreaAreaDistance, upLoadArr)
           }
         }
       } catch (error) {
         console.log(error)
       }
-      console.log(upLoadArr)
-      // upLoadArr.forEach((upLoadItem, index) => {
-      //   if (upLoadItem.amount === 0) {
-      //     upLoadArr.splice(index, 1)
-      //   }
-      // })
+      // upLoadArr是结果
+      resolve(upLoadArr)
     })
   })
 }
@@ -110,17 +120,21 @@ function main (A, area_index, rescue_index, level, allArea, allGood, allAreaArea
   for (let goodIndex = 0;goodIndex < allArea[area_index].rescueArr[rescue_index].goodArr.length;goodIndex++) {
     let goodItem = getGoodObject(allArea[area_index].rescueArr[rescue_index].goodArr[goodIndex].good_id, allGood)
     if (A.surplus > goodItem.weight * allArea[area_index].rescueArr[rescue_index].goodArr[goodIndex].amount) {
+      // 剩余大于所载重量
       let loadNum = allArea[area_index].rescueArr[rescue_index].goodArr[goodIndex].amount
       A.surplus = A.surplus - goodItem.weight * allArea[area_index].rescueArr[rescue_index].goodArr[goodIndex].amount
       allArea[area_index].rescueArr[rescue_index].goodArr[goodIndex].amount = 0
       // 记录------------A,物资点号,物资号,数量,灾点号,优先级.
       if (loadNum !== 0) {
+        console.log(allArea[area_index].area_name)
         upLoadArr.push({
           vehicle_id: A.id,
           vehicle_name: A.name,
           rescue_id: allArea[area_index].rescueArr[rescue_index].rescue_id,
           area_id: allArea[area_index].area_id,
+          area_name: allArea[area_index].area_name,
           good_id: allArea[area_index].rescueArr[rescue_index].goodArr[goodIndex].good_id,
+          good_name: allArea[area_index].rescueArr[rescue_index].goodArr[goodIndex].good_name,
           amount: loadNum,
           level
         })
@@ -129,6 +143,7 @@ function main (A, area_index, rescue_index, level, allArea, allGood, allAreaArea
         seek_next(A, area_index, rescue_index, level + 1, allArea, allGood, allAreaAreaDistance, upLoadArr)
       }
     } else {
+      // 剩余小于所载重量
       // 记录------------A, 物点号,物资号,数量优先级,灾点号
       for(var amount = allArea[area_index].rescueArr[rescue_index].goodArr[goodIndex].amount; amount * goodItem.weight < A.surplus; amount--) {}
       allArea[area_index].rescueArr[rescue_index].goodArr[goodIndex].amount = allArea[area_index].rescueArr[rescue_index].goodArr[goodIndex].amount - amount
@@ -137,7 +152,9 @@ function main (A, area_index, rescue_index, level, allArea, allGood, allAreaArea
         vehicle_name: A.name,
         rescue_id: allArea[area_index].rescueArr[rescue_index].rescue_id,
         area_id: allArea[area_index].area_id,
+        area_name: allArea[area_index].area_name,
         good_id: allArea[area_index].rescueArr[rescue_index].goodArr[goodIndex].good_id,
+        good_name: allArea[area_index].rescueArr[rescue_index].goodArr[goodIndex].good_name,
         amount,
         level
       })
@@ -232,28 +249,28 @@ function getVehicleObject (vehicle_id, allVehicle) {
       // 暂时使用四个if
       if (vehicleItem.id === '1') {
         vehicle = {
-          id: '1',
+          id: uuid(),
           name: '直升飞机',
           load: 500,
           surplus: 500
         }
       } else if (vehicleItem.id === '2') {
         vehicle = {
-          id: '2',
+          id: uuid(),
           name: '无人机',
           load: 200,
           surplus: 200
         }
       } else if (vehicleItem.id === '3') {
         vehicle = {
-          id: '3',
+          id: uuid(),
           name: '汽车',
           load: 400,
           surplus: 400
         }
       } else if (vehicleItem.id === '4') {
         vehicle = {
-          id: '4',
+          id: uuid(),
           name: '船',
           load: 200,
           surplus: 200

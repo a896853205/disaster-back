@@ -2,7 +2,7 @@
  * @Author: qc
  * @Date: 2018-01-07 00:08:09 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-03-05 23:43:52
+ * @Last Modified time: 2018-03-13 14:27:25
  */
 let returnObject = require('../common/returnObject')
 let areaService = require('../service/areaService')
@@ -70,10 +70,11 @@ router.post('/computedUpLoad', (req, res, next) => {
   // 从req中获取问卷标题
   let param = req.body
   areaUpLoadService.areaUpLoad(param)
-  .then(res => {
+  .then(upLoadArr => {
     result.linkSuccess()
     res.json({
-      statusObj: result
+      statusObj: result,
+      upLoadArr: upLoadArr
     })
   })
   .catch(e => {
