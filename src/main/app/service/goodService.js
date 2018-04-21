@@ -17,4 +17,16 @@ goodService.selectAllGood = () => {
   })
 }
 
+goodService.addGoods = ({name, type_id, size, unit, weight}) => {
+  return new Promise((resolve, reject) => {
+    goodOperate.addGoods({name, type_id, size, unit, weight})
+    .then(value => {
+      resolve(value)
+    })
+    .catch(e => {
+      console.log(e)
+    })
+  })
+}
+
 module.exports = goodService
