@@ -2,7 +2,7 @@
  * @Author: qc
  * @Date: 2018-01-06 02:34:13 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-04-21 16:32:49
+ * @Last Modified time: 2018-04-22 11:43:20
  */
 let areaMapper = require('../../resources/mapper/areaMapper')
 let db = require('../../resources/dbconnect')
@@ -32,6 +32,31 @@ areaOperate.addArea = ({name, population, density, longitude, latitude}) => {
   return new Promise((resolve, reject) => {
     try {
       db.query(areaMapper.insertArea, [uuid(), name, population, density, longitude, latitude], resolve)
+    } catch (error) {
+      console.log(error)
+    }
+  })
+}
+/**
+ * 修改地区基本信息
+ */
+areaOperate.updateArea = ({id, name, population, density, longitude, latitude}) => {
+  return new Promise((resolve, reject) => {
+    try {
+      db.query(areaMapper.updateArea, [name, population, density, longitude, latitude, id], resolve)
+    } catch (error) {
+      console.log(error)
+    }
+  })
+}
+/**
+ * 删除地区基本信息
+ */
+
+areaOperate.deleteArea = id => {
+  return new Promise((resolve, reject) => {
+    try {
+      db.query(areaMapper.deleteArea, [id], resolve)
     } catch (error) {
       console.log(error)
     }

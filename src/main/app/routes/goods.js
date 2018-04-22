@@ -22,4 +22,19 @@ router.post('/addGoods', (req, res, next) => {
   })
 })
 
+/**
+ * 获取所有物资
+ */
+router.get('/getAllGoods', (req, res, next) => {
+  let result = new returnObject()
+  goodsService.selectAllGood()
+  .then(value => {
+    result.linkSuccess()
+    res.json({
+      statusObj: result,
+      allGoods: value
+    })
+  })
+})
+
 module.exports = router

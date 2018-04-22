@@ -2,7 +2,7 @@
  * @Author: qc
  * @Date: 2018-01-06 02:34:13 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-02-18 15:45:35
+ * @Last Modified time: 2018-04-21 19:38:55
  */
 let typeMapper = require('../../resources/mapper/typeMapper')
 let db = require('../../resources/dbconnect')
@@ -17,6 +17,15 @@ typeOperate.selectAllTypeFactor = () => {
     } catch (e) {
       reject(e)
     }
+  })
+}
+
+/**
+ * 查询所有类型名
+ */
+typeOperate.selectAllTypeName = () => {
+  return new Promise((resolve, reject) => {
+    db.query(typeMapper.selectAllTypeName, [], resolve)
   })
 }
 

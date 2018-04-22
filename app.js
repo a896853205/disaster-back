@@ -29,6 +29,8 @@ let getNavRouter = require(`${mainPath}/app/routes/nav`)
 let areaRouter = require(`${mainPath}/app/routes/area`)
 let goodsRouter = require(`${mainPath}/app/routes/goods`)
 let rescueRouter = require(`${mainPath}/app/routes/rescue`)
+let vehicleRouter = require(`${mainPath}/app/routes/vehicle`)
+let typeFactorRouter = require(`${mainPath}/app/routes/typeFactor`)
 let strengthRouter = require(`${mainPath}/app/routes/strength`)
 let computedRouter = require(`${mainPath}/app/routes/computed`)
 // 测试路由
@@ -64,9 +66,7 @@ app.use('/home', verifyIdMiddle);
 // 没有权限的的路由
 app.use('/', noneRouter);
 // 正式路由
-app.use('/home', areaRouter, goodsRouter, rescueRouter)
-app.use('/strength', strengthRouter)
-app.use('/computed', computedRouter)
+app.use('/home', areaRouter, goodsRouter, rescueRouter, strengthRouter, computedRouter, vehicleRouter, typeFactorRouter)
 
 // 获取token的值,根据自己的权限获取nav的值
 app.use('/home/all', getTokenRouter, getNavRouter);

@@ -35,4 +35,33 @@ areaService.addArea = ({name, population, density, longitude, latitude}) => {
   })
 }
 
+/**
+ * 修改地区基本信息
+ */
+areaService.updateArea = ({id, name, population, density, longitude, latitude}) => {
+  return new Promise((resolve, reject) => {
+    areaOperate.updateArea({id, name, population, density, longitude, latitude})
+    .then(value => {
+      resolve(value)
+    })
+    .catch(e => {
+      console.log(e)
+    })
+  })
+}
+/**
+ * 删除地区基本信息
+ */
+areaService.deleteArea = id => {
+  // 这里还要删除这个地区的所有距离---------------------
+  return new Promise((resolve, reject) => {
+    areaOperate.deleteArea(id)
+    .then(value => {
+      resolve(value)
+    })
+    .catch(e => {
+      console.log(e)
+    })
+  })
+}
 module.exports = areaService
