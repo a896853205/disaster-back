@@ -14,5 +14,7 @@ module.exports = {
   // 删除物资
   deleteGoods: 'delete from d_good where id = ?',
   // 删除一个物资点的物资
-  deleteRescueGoods: 'delete from d_rescue_good where id = ?'
+  deleteRescueGoods: 'delete from d_rescue_good where id = ?',
+  // 删除物资点的所有物资
+  deleteRescueAllGoods: 'delete from d_rescue_good where rescue_id = ?'
 }

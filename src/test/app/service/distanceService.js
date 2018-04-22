@@ -24,7 +24,6 @@ distanceService.insertDistance = () => {
             )) 
           })
         })
-        console.log(allPromise.length)
         return Promise.all(allPromise)
       })
       .then()

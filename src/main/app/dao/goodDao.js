@@ -2,7 +2,7 @@
  * @Author: qc
  * @Date: 2018-01-06 02:34:13 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-04-22 18:00:38
+ * @Last Modified time: 2018-04-22 20:42:09
  */
 let goodMapper = require('../../resources/mapper/goodMapper')
 let db = require('../../resources/dbconnect')
@@ -72,6 +72,18 @@ goodOperate.deleteRescueGoods = id => {
   return new Promise((resolve, reject) => {
     try {
       db.query(goodMapper.deleteRescueGoods, [id], resolve)
+    } catch (e) {
+      reject(e)
+    }
+  })
+}
+/**
+ * 删除一个物资点的所有物资
+ */
+goodOperate.deleteRescueAllGoods = id => {
+  return new Promise((resolve, reject) => {
+    try {
+      db.query(goodMapper.deleteRescueAllGoods, [id], resolve)
     } catch (e) {
       reject(e)
     }

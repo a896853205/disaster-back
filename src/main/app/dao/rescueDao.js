@@ -2,7 +2,7 @@
  * @Author: qc
  * @Date: 2018-01-06 02:34:13 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-04-22 12:18:47
+ * @Last Modified time: 2018-04-22 19:19:57
  */
 let rescueMapper = require('../../resources/mapper/rescueMapper')
 let db = require('../../resources/dbconnect')
@@ -24,9 +24,9 @@ rescueOperate.selectAllRescue = () => {
 /**
  * 增加营救点
  */
-rescueOperate.addRescue = ({name, longitude, latitude, open}) =>{
+rescueOperate.addRescue = ({rescueUuid, name, longitude, latitude, open}) =>{
   return new Promise((resolve, reject) => {
-    db.query(rescueMapper.insertRescue, [uuid(), name, longitude, latitude, open], resolve)
+    db.query(rescueMapper.insertRescue, [rescueUuid, name, longitude, latitude, open], resolve)
   })
 }
 
